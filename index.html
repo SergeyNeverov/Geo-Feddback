@@ -1,0 +1,73 @@
+<!doctype HTML>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Проект Гео-Отзыв</title>
+    <link rel="icon" type="image/png" href="//yastatic.net/s3/front-maps-static/front-maps//static/v2/icons/favicon/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <script src=" http://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=fddd1435-ad6a-45b6-90bd-e886baf1bd4b"></script>
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/handlebars-v4.1.1.js "></script>
+</head>
+
+<body>
+
+<div id="myMap" class="container"></div>
+
+<div id="popup" class="popup" role="dialog"></div>
+
+
+
+
+<script type="text/x-handlebars-template" id="PopupTemplate">
+    <div class="popup__feedback">
+        <div class="popup__feedback_header">
+            <div class="popup__feedback_header"></div>
+            <ion-icon name="pin" class="popup__feedback_icon"></ion-icon>
+            <h3 class="popup__feedback_placename">
+                {{address}}
+            </h3>
+            <ion-icon name="close" class="popup__feedback_close-btn" onclick="Router.handle('closePopup')"></ion-icon>
+        </div>
+        <div class="popup__feedback_body">
+            <ul id="feedbackList" class="popup__feedback_list">
+                {{#if publishedfeedbacks}}
+                {{#each publishedfeedbacks}}
+                <li class="popup__feedback_item">
+                    <div class="popup__feedback_details">
+                        <span class="popup__feedback_author">{{name}}</span>
+                        <span class="popup__feedback_place-time">{{place}} {{publishedOn}}</span>
+                    </div>
+                </li>
+                {{/each}}
+                {{else}}
+                <li class="feedback-list__item">{{emptyFeedbackList}}</li>
+                {{/if}}
+            </ul>
+            <h5 class="popup__feedback_title">Ваш отзыв</h5>
+            <form id="feedbackForm" class="popup__feedback_form" onchange="Router.handle('removeErrorClass', event.target)">
+                <input type="text" class="popup__feedback_field" placeholder="Ваше имя">
+                <input type="text" class="popup__feedback_field" placeholder="Укажите место">
+                <textarea class="popup__feedback_field" placeholder="Поделитесь впечатлениями"></textarea>
+            </form>
+        </div>
+        <div class="popup__feedback_footer">
+            <button type="button" class="popup__feedback_add-btn" onclick="Router.handle('addfeedback')">Добавить</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="addFeedbackTemplate">
+    <li class="feedback-list__item">
+        <p class="feedback_details">
+            <span class="feedback_author">{{name}}</span>
+            <span class="feedback_place-and-time">{{place}} {{timeOfFeedback}}</span>
+        </p>
+        <p class="feedback_text">{{feedbackText}}</p>
+    </li>
+</script>
+</body>
+</html>
+

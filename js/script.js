@@ -1,4 +1,3 @@
-// попап с формой отзыва почему то открывается только по двойному клику по карте и по метки с одним отзывом, пока не могу понять, почему
 new Promise( resolve => {
     window.onload = resolve;
     // ждем полную загрузку страницы
@@ -24,7 +23,6 @@ new Promise( resolve => {
                 emptyFeedbackList: 'Отзывов пока нет'
             });
         });
-
     });
     Model.clusterer.events.add('balloonopen', () => {
         View.close('popup');
@@ -159,18 +157,12 @@ let View = {
 
         return renderFn(model);
     },
+    // проблема была здесь
     showPopup(elemId, coords) {
         let elem = document.getElementById(elemId);
-        elem.style.left = coords[0] + 'px';
-        elem.style.top = coords[1] + '100px';
-        // +100px чтобы отображался плюс минус по центру по y-оси
-        let rect = elem.getBoundingClientRect();
-        if(rect.right >= document.documentElement.clientWidth ||
-            rect.bottom >= document.documentElement.clientHeight) {
-            elem.style.left = '40%';
-            elem.style.top = '30%';
-            Model.map.panTo(Model.actualCoords);
-        }
+        elem.style.left = '40%';
+        elem.style.top = '30%';
+        Model.map.panTo(Model.actualCoords);
         elem.classList.add('open_popup');
     },
     close(elemId) {
@@ -192,7 +184,7 @@ let View = {
             `<div class=balloon>
       	<div class=balloon__body>
       	<h3 class=balloon__title>{{ properties.place }}</h3>
-      		<span class=ballon__address 
+      		<span class=ballon__address
       			 onclick="Router.handle( openSelectedObject, {{ properties.coords }}, event)">
       			 	{{ properties.address }}
       		</span>

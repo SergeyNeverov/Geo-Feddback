@@ -26,7 +26,7 @@
             <h3 class="popup__feedback_placename">
                 {{address}}
             </h3>
-            <ion-icon name="close" class="popup__feedback_close-btn" onclick="Router.handle('closePopup')"></ion-icon>
+            <ion-icon name="close" class="popup__feedback_close-btn" onclick="Router.handle('closePopup')" ontouch= "Router.handle('closePopup')"></ion-icon>
         </div>
         <div class="popup__feedback_body">
             <ul id="feedbackList" class="popup__feedback_list">
@@ -35,7 +35,8 @@
                 <li class="popup__feedback_item">
                     <div class="popup__feedback_details">
                         <span class="popup__feedback_author">{{name}}</span>
-                        <span class="popup__feedback_place-time">{{place}} {{publishedOn}}</span>
+                        <span class="popup__feedback_text">{{feedbackText}}</span>
+                        <span class="popup__feedback_place-time">{{place}} {{timeOfFeedback}}</span>
                     </div>
                 </li>
                 {{/each}}
@@ -51,7 +52,7 @@
             </form>
         </div>
         <div class="popup__feedback_footer">
-            <button type="button" class="popup__feedback_add-btn" onclick="Router.handle('addfeedback')">Добавить</button>
+            <button type="button" class="popup__feedback_add-btn" onclick="Router.handle('addfeedback')" ontouch="Router.handle('addfeedback')">Добавить</button>
         </div>
     </div>
 </script>

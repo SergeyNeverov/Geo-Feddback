@@ -157,7 +157,7 @@ let View = {
 
         return renderFn(model);
     },
-    // проблема была здесь
+    // проблема была здесь 
     showPopup(elemId, coords) {
         let elem = document.getElementById(elemId);
         elem.style.left = '40%';
